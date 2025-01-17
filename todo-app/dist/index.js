@@ -1,27 +1,18 @@
-interface Task {
-    id: number;
-    title: string;
-    completed: boolean;
-}
-
-const taskForm = document.getElementById("taskForm") as HTMLFormElement;
-const taskInput = document.getElementById("taskInput") as HTMLInputElement;
-const taskList = document.getElementById("taskList") as HTMLDataListElement;
-
-let tasks: Task[] = [];
-
-const addTask = (title: string): void => {
-    const newTask: Task = {
+"use strict";
+const taskForm = document.getElementById("taskForm");
+const taskInput = document.getElementById("taskInput");
+const taskList = document.getElementById("taskList");
+let tasks = [];
+const addTask = (title) => {
+    const newTask = {
         id: Date.now(),
         title,
         completed: false,
     };
-
     tasks.push(newTask);
     renderTasks();
 };
-
-const renderTasks = (): void => {
+const renderTasks = () => {
     taskList.innerHTML = "";
     tasks.forEach((task) => {
         const li = document.createElement("li");
@@ -29,7 +20,6 @@ const renderTasks = (): void => {
         taskList.appendChild(li);
     });
 };
-
 taskForm.addEventListener("submit", (event) => {
     event.preventDefault();
     if (taskInput.value.trim()) {
