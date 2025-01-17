@@ -17,6 +17,13 @@ const renderTasks = () => {
     tasks.forEach((task) => {
         const li = document.createElement("li");
         li.textContent = task.title;
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.addEventListener("click", () => {
+            tasks = tasks.filter((t) => t.id !== task.id);
+            renderTasks();
+        });
+        li.appendChild(deleteButton);
         taskList.appendChild(li);
     });
 };
