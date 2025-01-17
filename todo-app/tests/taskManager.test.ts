@@ -1,11 +1,28 @@
 import { Task, addTask, deleteTask, toggleTaskCompletion } from "../src/taskManager";
 
-describe("Task Manager", () => {
+describe("Task Manager - Edge Cases", () => {
   let tasks: Task[];
 
   beforeEach(() => {
     tasks = [];
   });
+
+  it("should not add an empty task", () => {
+    addTask("", tasks);
+    expect(tasks.length).toBe(0);
+  });
+
+  it("should handle deleting a non-existent task", () => {
+    addTask("Test Task", tasks);
+    deleteTask(9999,tasks); // ID that doesn't exist
+    expect(tasks.length).toBe(1);
+  });
+
+  it("should handle toggling completion for a non-existent task", () => {
+    addTask("Test Task", tasks);
+    toggleTaskCompletion(9999, tasks); // ID that doesn't exist
+    expect(tasks[0].completed).toBe(false);
+  })
 
   it("should add a new task", () => {
     addTask("Test Task", tasks);
