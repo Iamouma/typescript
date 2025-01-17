@@ -27,8 +27,18 @@ const renderTasks = (): void => {
         const li = document.createElement("li");
         li.textContent = task.title;
 
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = task.completed;
+        checkbox.addEventListener("change", () => {
+            task.completed = checkbox.checked;
+        });
+
         const taskTitle = document.createElement("span");
         taskTitle.textContent = task.title;
+        if (task.completed) {
+            taskTitle.style.textDecoration = "line-through";
+        }
 
         const editButton = document.createElement("button");
         editButton.textContent = "Edit";
@@ -47,6 +57,7 @@ const renderTasks = (): void => {
             renderTasks();
         });
 
+        li.appendChild(checkbox);
         li.appendChild(taskTitle);
         li.appendChild(editButton);
         li.appendChild(deleteButton);
