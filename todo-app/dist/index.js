@@ -17,12 +17,25 @@ const renderTasks = () => {
     tasks.forEach((task) => {
         const li = document.createElement("li");
         li.textContent = task.title;
+        const taskTitle = document.createElement("span");
+        taskTitle.textContent = task.title;
+        const editButton = document.createElement("button");
+        editButton.textContent = "Edit";
+        editButton.addEventListener("click", () => {
+            const newTitle = prompt("Edit task:", task.title);
+            if (newTitle) {
+                task.title = newTitle.trim();
+                renderTasks();
+            }
+        });
         const deleteButton = document.createElement("button");
         deleteButton.textContent = "Delete";
         deleteButton.addEventListener("click", () => {
             tasks = tasks.filter((t) => t.id !== task.id);
             renderTasks();
         });
+        li.appendChild(taskTitle);
+        li.appendChild(editButton);
         li.appendChild(deleteButton);
         taskList.appendChild(li);
     });
