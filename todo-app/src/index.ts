@@ -65,10 +65,25 @@ const renderTasks = (): void => {
     });
 };
 
+const saveTasks = (): void => {
+    localStorage.setItem("tasks", JSON.stringify(tasks)); 
+};
+
+const loadTasks = (): void => {
+    const tasksJSON = localStorage.getItem("tasks");
+    if (tasksJSON) {
+        tasks = JSON.parse(tasksJSON);
+        renderTasks();
+    }
+};
+
 taskForm.addEventListener("submit", (event) => {
     event.preventDefault();
     if (taskInput.value.trim()) {
         addTask(taskInput.value.trim());
         taskInput.value = "";
+        saveTasks();
     }
 });
+
+window.addEventListener("load", loadTasks);

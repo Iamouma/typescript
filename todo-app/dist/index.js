@@ -50,10 +50,22 @@ const renderTasks = () => {
         taskList.appendChild(li);
     });
 };
+const saveTasks = () => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+};
+const loadTasks = () => {
+    const tasksJSON = localStorage.getItem("tasks");
+    if (tasksJSON) {
+        tasks = JSON.parse(tasksJSON);
+        renderTasks();
+    }
+};
 taskForm.addEventListener("submit", (event) => {
     event.preventDefault();
     if (taskInput.value.trim()) {
         addTask(taskInput.value.trim());
         taskInput.value = "";
+        saveTasks();
     }
 });
+window.addEventListener("load", loadTasks);
